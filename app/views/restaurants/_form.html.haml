@@ -1,0 +1,25 @@
+= form_for(@restaurant) do |f|
+  .field
+    = f.label :foursquare_id
+    %br
+    = f.text_field :foursquare_id
+
+  .field
+    = f.label :capacity
+    %br
+    = f.number_field :capacity
+
+  %br
+  - @cuisine_types.order('name ASC').each do |type|
+    -if @restaurant.cuisine_types.where(id: type.id).exists?
+      =check_box_tag 'cuisine_type_ids[]', type.id, checked: "true" 
+    -else
+      =check_box_tag 'cuisine_type_ids[]', type.id
+    %label=type.name
+    %br
+
+  %br
+  .actions
+    = f.submit
+
+

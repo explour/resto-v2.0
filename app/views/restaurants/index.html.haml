@@ -1,0 +1,25 @@
+.row
+	.col-sm-9
+		- @restaurants.each do |single|
+			%a{:href => "/restaurants/#{single.id}"}
+				%div.col-md-4.col-xs-6
+					.restaurant-block
+						%img{:src => "#{single.photo}"}
+						%br
+						.restaurant-desc
+							%p#restaurant_name=single.name
+							%p=single.address_1
+							%p=single.city
+	.col-sm-3
+		%h4 Categories
+		%ul.category-sidebar
+			- @cuisine_types.each do |cuisine_type|
+				%a{:href => "/cuisines/#{cuisine_type.id}"}
+					%li=cuisine_type.name
+			%a{:href => "/restaurants"}
+				%li Show all
+		-if current_user && current_user.admin?
+			=form_tag("/cuisines", method: "post")
+			=text_field_tag 'name', nil, placeholder: 'New Category:'
+			%br
+			=submit_tag("Submit", id: 'submit_category')

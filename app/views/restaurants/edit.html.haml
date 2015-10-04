@@ -1,0 +1,13 @@
+.row
+	%div.col-sm-3.restaurant-view
+		%img{:src => "#{@restaurant.photo}"}
+		-if current_user && (current_user.admin? || current_user.restaurant_id == @restaurant.id)
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/edit"} Edit Restaurant
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/reservations/new"} Add Reservation
+		-elsif current_user
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/reservations/new"} Make a Reservation
+		-else
+			%a.btn.btn-default{:href => "/users/sign_in"} Make a Reservation
+			
+	.col-sm-9
+		=render 'form'

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  foursquare_id: MyString
+  capacity: 1
+  name: MyString
+  description: MyText
+  address_1: MyString
+  address_2: MyString
+  city: MyString
+  province: MyString
+  restaurant_id: 1
+  photo: MyString
+  price_range: 1
+
+two:
+  foursquare_id: MyString
+  capacity: 1
+  name: MyString
+  description: MyText
+  address_1: MyString
+  address_2: MyString
+  city: MyString
+  province: MyString
+  restaurant_id: 1
+  photo: MyString
+  price_range: 1

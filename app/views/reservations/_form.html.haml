@@ -1,0 +1,16 @@
+= form_for([@restaurant, @reservation]) do |f|
+  .field
+
+  .field
+    = f.label :time
+    %br
+    = f.datetime_select :time, :minute_step => 15
+
+  .field
+    = f.label :party_size
+    %br
+    = f.number_field :party_size
+
+  .actions
+    %br
+    = f.submit

@@ -1,0 +1,64 @@
+.row
+	%div.col-sm-3.restaurant-view
+		%img{:src => "#{@restaurant.photo}"}
+		-if current_user && (current_user.admin? || current_user.restaurant_id == @restaurant.id)
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/edit"} Edit Restaurant
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/reservations/new"} Add Reservation
+		-elsif current_user
+			%a.btn.btn-default{:href => "/restaurants/#{@restaurant.id}/reservations/new"} Make a Reservation
+		-else
+			%a.btn.btn-default{:href => "/users/sign_in"} Make a Reservation
+			
+	.col-sm-9
+		%h1#restaurant_name=@restaurant.name
+		%h4 Address:
+		%p=@restaurant.address_1
+		%p=@restaurant.city
+
+		%br
+		-if current_user && (current_user.admin? || current_user.restaurant_id == @restaurant.id)
+			%h4 All Reservations
+			%table.table.table-bordered
+				%tr
+					%td Customer Name
+					%td Reservation Time
+					%td Party Size
+				- if @reservations.count == 0
+					%tr 
+						%td{:colspan => 3}None
+				- else
+					- @reservations.each do |reservation|
+						%tr
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.user_id
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.time.to_formatted_s(:long_ordinal) if reservation.time != nil
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.party_size
+		-elsif current_user
+			%h4 Your Reservations
+			%table.table.table-bordered
+				%tr
+					%td Customer Name
+					%td Reservation Time
+					%td Party Size
+
+				- if @reservations.count == 0
+					%tr 
+						%td{:colspan => 3}None
+				- else
+					- @reservations.each do |reservation|
+						%tr
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.user_id
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.time.to_formatted_s(:long_ordinal) if reservation.time != nil
+							%td
+								%a{:href => "/restaurants/#{@restaurant.id}/reservations/#{reservation.id}/edit"}
+									=reservation.party_size
+					
